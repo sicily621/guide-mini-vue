@@ -1,6 +1,7 @@
 import { extend } from "../shared/index";
 
 let activeEffect: any;
+let shouldTrack;
 class ReactiveEffect{
     private _fn: any;
     deps = [];
@@ -10,8 +11,16 @@ class ReactiveEffect{
         this._fn = fn;
     }
     run(){
+        if(!this.active){
+            return this._fn();
+        }
+        shouldTrack = true;
+
         activeEffect = this;
-        return this._fn();
+        const result = this._fn();
+
+        shouldTrack = false;
+        return result;
     }
     stop(){
         if(this.active){
@@ -25,24 +34,29 @@ function cleanupEffect(effect){
     effect.deps.forEach((dep:any)=>{
         dep.delete(effect)
     })
+    effect.deps.length = 0;
 }
 let targetMap = new Map();
-export function track(target: any,key: any){
-    //targetMap target key
-    let depsMap = targetMap.get(target);
-    if(!depsMap){
-        depsMap = new Map();
-        targetMap.set(target,depsMap);
-    }
-    let deps = depsMap.get(key);
-    if(!deps){
-        deps = new Set();
-        depsMap.set(key,deps);
-    }
-    if(!activeEffect) return;
-    deps.add(activeEffect)
-    //反向收集
-    activeEffect.deps.push(deps);
+export function track(target: any, key: any) {
+  //targetMap target key
+  if(!isTracking()) return;
+  let depsMap = targetMap.get(target);
+  if (!depsMap) {
+    depsMap = new Map();
+    targetMap.set(target, depsMap);
+  }
+  let deps = depsMap.get(key);
+  if (!deps) {
+    deps = new Set();
+    depsMap.set(key, deps);
+  }
+  if(deps.has(activeEffect)) return;
+  deps.add(activeEffect);
+  //反向收集
+  activeEffect.deps.push(deps);
+}
+function isTracking() {
+    return shouldTrack && activeEffect!==undefined;
 }
 export function trigger(target:any,key:any){
     let depsMap = targetMap.get(target);
