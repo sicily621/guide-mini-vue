@@ -50,18 +50,24 @@ export function track(target: any, key: any) {
     deps = new Set();
     depsMap.set(key, deps);
   }
-  if(deps.has(activeEffect)) return;
-  deps.add(activeEffect);
-  //反向收集
-  activeEffect.deps.push(deps);
+  trackEffects(deps);
 }
-function isTracking() {
+export function trackEffects(deps){
+    if (deps.has(activeEffect)) return;
+    deps.add(activeEffect);
+    //反向收集
+    activeEffect.deps.push(deps);
+}
+export function isTracking() {
     return shouldTrack && activeEffect!==undefined;
 }
 export function trigger(target:any,key:any){
     let depsMap = targetMap.get(target);
     if(!depsMap) return;
     let deps = depsMap.get(key);
+    triggerEffect(deps);
+}
+export function triggerEffect(deps){
     deps && deps.forEach((effect)=>{
         if(effect.schedular){
             effect.schedular()
