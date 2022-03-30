@@ -5,7 +5,13 @@ export const App = {
         window.self = this;
         return h("div",{
             id:'root',
-            class:['red','hard']
+            class:['red','hard'],
+            onClick(){
+                console.log('click')
+            },
+            onMousedown(){
+                console.log('onMousedown')
+            }
         },
         "hi,"+this.msg
         //[h("p",{class:'red'},"hi"),h("h1",{class:"green"},'标题')]
