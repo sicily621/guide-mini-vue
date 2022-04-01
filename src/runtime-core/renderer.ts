@@ -11,7 +11,6 @@ function patch(vnode, container) {
     } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
       processComponent(vnode, container);
     }
-    
 }
 function processElement(vnode, container) {
   mountElement(vnode, container);
