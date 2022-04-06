@@ -23,3 +23,4 @@
 + [x] 实现组件 props 功能
 + [x] 实现组件 emit 功能
 + [x] 实现组件 slots 功能
++ [x] 实现 Fragment和Text类型 节点功能
