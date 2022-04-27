@@ -27,3 +27,4 @@
 + [x] 实现 getCurrentInstance
 + [x] 实现 provide & inject 功能
 + [x] 实现 自定义渲染器 功能
++ [x] 更新 element 流程搭建
