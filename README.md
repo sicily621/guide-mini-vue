@@ -31,3 +31,4 @@
 + [x] 更新 element 的 props 
 + [x] 更新 element 的 children
 + [x] 实现 双端对比 diff 算法 
++ [x] 实现 组件更新功能
