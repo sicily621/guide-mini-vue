@@ -7,7 +7,7 @@ export class ReactiveEffect{
     deps = [];
     active = true;
     onStop?:()=>void;
-    constructor(fn: any,public schedular?: any){
+    constructor(fn: any,public scheduler?: any){
         this._fn = fn;
     }
     run(){
@@ -69,15 +69,15 @@ export function trigger(target:any,key:any){
 }
 export function triggerEffect(deps){
     deps && deps.forEach((effect)=>{
-        if(effect.schedular){
-            effect.schedular()
+        if(effect.scheduler){
+            effect.scheduler()
         }else{
             effect.run()
         }
     })
 }
 export function effect(fn: any,options:any = {}){
-    const _effect = new ReactiveEffect(fn,options.schedular);
+    const _effect = new ReactiveEffect(fn,options.scheduler);
     extend(_effect,options);
     _effect.onStop = options.onStop;
     _effect.run();

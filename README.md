@@ -4,7 +4,7 @@
 
 目前已实现功能：
 
-+ [x]  effect、reactive、依赖收集、依赖触发
++ [x] effect、reactive、依赖收集、依赖触发
 + [x] effect 的 scheduler 功能
 + [x] readonly 功能
 + [x] isReactive、isReadonly 工具函数
@@ -32,3 +32,4 @@
 + [x] 更新 element 的 children
 + [x] 实现 双端对比 diff 算法 
 + [x] 实现 组件更新功能
++ [x] 实现 nextTick 功能
