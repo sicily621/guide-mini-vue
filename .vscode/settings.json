@@ -2,5 +2,7 @@
     "liveServer.settings.port": 5503,
     "cSpell.words": [
         "vnode"
-    ]
+    ],
+    "editor.fontSize": 16,
+    "editor.lineHeight": 24
 }
