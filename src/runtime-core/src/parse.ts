@@ -20,8 +20,24 @@ function parseChildren(context){
             node = parseElement(context);
         }
     }
+    if(!node){
+        console.log('parse text');
+        node = parseText(context);
+    }
     nodes.push(node);
     return nodes;
+}
+function parseText(context:any){
+    const content = parseTextData(context,context.source.length);
+    return{
+        type:NodeTypes.TEXT,
+        content
+    }
+}
+function parseTextData(context:any,length){
+    const content = context.source.slice(0,length);
+    advanceBy(context,length);
+    return content;
 }
 function parseElement(context:any){
     const element = parseTag(context,TagType.Start);
@@ -45,9 +61,9 @@ function parseInterpolation(context){
     const closeIndex = context.source.indexOf(closeDelimiter,openDelimiter.length);
     advanceBy(context,openDelimiter.length);
     const rawContentLength = closeIndex-openDelimiter.length;
-    const rawcontent = context.source.slice(0,rawContentLength);
+    const rawcontent = parseTextData(context,rawContentLength);
     const content = rawcontent.trim();
-    advanceBy(context,rawContentLength+closeDelimiter.length);
+    advanceBy(context,closeDelimiter.length);
     return {
         type:NodeTypes.INTERPOLATION,
         content:{

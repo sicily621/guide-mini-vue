@@ -35,3 +35,4 @@
 + [x] 实现 nextTick 功能
 + [x] 实现 解析插值 功能
 + [x] 实现 解析element 功能
++ [x] 实现 解析text 功能
