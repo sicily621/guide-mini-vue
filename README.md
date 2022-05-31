@@ -37,3 +37,5 @@
 + [x] 实现 解析element 功能
 + [x] 实现 解析text 功能
 + [x] 实现 解析三种联合类型 功能
++ [x] 实现 transform 功能
++ [x] 实现 代码生成 string 类型
